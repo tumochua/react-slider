@@ -1,12 +1,21 @@
+.wapper {
+}
 .container {
   display: flex;
+  justify-content: center;
   margin-top: 120px;
+}
+.item {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
 }
 .icon-right {
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  padding: 10px;
   /* height: 100vh; */
 }
 .icon-left {
@@ -15,4 +24,5 @@
   justify-content: center;
   margin-left: 10px;
   cursor: pointer;
+  padding: 10px;
 }

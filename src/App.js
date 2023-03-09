@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, Fragment } from "react";
 import "./App.css";
 import Slider from "./components/Slider";
 
@@ -41,25 +41,49 @@ function App() {
   const settings = {
     dots: true,
     infinite: true,
-    speed: 500,
-    displayElements: 3,
+    speed: 3000,
+    displayElements: 4,
     sizeNext: 1,
   };
 
   return (
-    <div className="wapper">
-      <Slider {...settings}>
-        {sliders &&
+    <div>
+      <Slider {...settings} sliders={sliders}>
+        {/* {sliders &&
           sliders.map((slider) => {
             return (
               <div className="item" key={slider.id}>
                 <img src={slider.image} alt={slider.id} className="image" />
               </div>
             );
-          })}
+          })} */}
       </Slider>
+      <MyComponent />
     </div>
   );
 }
 
 export default App;
+
+function MyComponent() {
+  const [numbers, setNumbers] = useState(
+    Array.from({ length: 10 }, (_, i) => i + 1)
+  );
+  const [currentIndex, setCurrentIndex] = useState(0);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % numbers.length);
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [numbers]);
+  return (
+    <div>
+      {numbers
+        .slice(currentIndex)
+        .concat(numbers.slice(0, currentIndex))
+        .map((number) => {
+          return <span key={number}>{number} </span>;
+        })}
+    </div>
+  );
+}
